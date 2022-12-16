@@ -11,6 +11,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CreateUpdateCustomerModalComponent } from './create-update-customer-modal/create-update-customer-modal.component';
+import { MachineListComponent } from './Machine/machine-list/machine-list.component';
+import { CreateUpdateMachineModalComponent } from './Machine/create-update-machine-modal/create-update-machine-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { CreateUpdateCustomerModalComponent } from './create-update-customer-mod
     ViewTestModalComponent,
     DemoListComponent,
     CustomerListComponent,
-    CreateUpdateCustomerModalComponent
+    CreateUpdateCustomerModalComponent,
+    MachineListComponent,
+    CreateUpdateMachineModalComponent
   ],
   imports: [
     CommonModule,

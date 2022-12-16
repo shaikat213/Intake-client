@@ -1,9 +1,9 @@
 <div class="modal-content">
   <div class="modal-header">
     <div class="modal-title h4 whiteFontColor" id="example-modal-sizes-title-lg">
-      <ng-container *ngIf="customer">
-        <ng-container *ngIf="customer.id" class="font-weight-bold"><strong>Edit Tenant</strong></ng-container>
-        <ng-container *ngIf="!customer.id" class="font-weight-bold"><strong>Create Tenant</strong></ng-container>
+      <ng-container *ngIf="machine">
+        <ng-container *ngIf="machine.id" class="font-weight-bold"><strong>Edit Tenant</strong></ng-container>
+        <ng-container *ngIf="!machine.id" class="font-weight-bold"><strong>Create Tenant</strong></ng-container>
       </ng-container>
     </div>
     <button class="btn btn-sm btn-danger close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
@@ -16,7 +16,7 @@
         <div class="spinner spinner-lg spinner-success"></div>
       </div>
     </ng-container>
-    <ng-container *ngIf="customer">
+    <ng-container *ngIf="machine">
       <form action="#" class="form form-label-right" [formGroup]="formGroup">
 
         <!-- Tenant Name -->
@@ -25,22 +25,22 @@
           <div class="col-9">
             <input type="text"
                    class="form-control form-control-lg form-control-solid"
-                   name="customerName"
-                   placeholder="Customer Name"
+                   name="machineNr"
+                   placeholder="Machine Nr"
                    autocomplete="off"
-                   [class.is-invalid]="isControlInvalid('customerName')"
-                   [class.is-valid]="isControlValid('customerName')"
-                   formControlName="customerName" />
-            <div class="valid-feedback" *ngIf="isControlValid('customerName')">
+                   [class.is-invalid]="isControlInvalid('machineNr')"
+                   [class.is-valid]="isControlValid('machineNr')"
+                   formControlName="machineNr" />
+            <div class="valid-feedback" *ngIf="isControlValid('machineNr')">
               Tenant name was entered correct
             </div>
-            <div class="invalid-feedback" *ngIf="controlHasError('required', 'customerName')">
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'machineNr')">
               Tenant name is required
             </div>
-            <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'customerName')">
+            <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'machineNr')">
               Tenant name should have at least 3 characters
             </div>
-            <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'customerName')">
+            <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'machineNr')">
               Tenant name should have maximum 350 characters
             </div>
           </div>
@@ -48,14 +48,14 @@
         <!-- Tenant Name -->
         <!-- Mobile  -->
         <div class="form-group row formSpace">
-          <label class="col-3 col-form-label text-lg-right"><b>Mobile:</b></label>
+          <label class="col-3 col-form-label text-lg-right"><b>Machine Type Serial</b></label>
           <div class="col-9">
             <input type="text"
                    class="form-control form-control-lg form-control-solid"
-                   name="customerPhone"
+                   name="machineTypeSerial"
                    placeholder="Phone"
-                   autocomplete="off"                   
-                   formControlName="customerPhone" />            
+                   autocomplete="off"
+                   formControlName="machineTypeSerial" />
           </div>
         </div>
         <!-- Mobile  -->

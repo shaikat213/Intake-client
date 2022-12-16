@@ -6,43 +6,43 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 import { SubSink } from 'subsink';
-import { CustomerDto } from '../../../proxy/dto-models';
-import { CustomerService } from '../../../proxy/services';
+import { MachineDto } from '../../../../proxy/dto-models';
+import { MachineService } from '../../../../proxy/services';
 
 @Component({
-  selector: 'app-create-update-customer-modal',
-  templateUrl: './create-update-customer-modal.component.html',
-  styleUrls: ['./create-update-customer-modal.component.scss']
+  selector: 'app-create-update-machine-modal',
+  templateUrl: './create-update-machine-modal.component.html',
+  styleUrls: ['./create-update-machine-modal.component.scss']
 })
-export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
+export class CreateUpdateMachineModalComponent implements OnInit, OnDestroy {
   @Input() id: number;
   //departmentInputDto: DepartmentInputDto = {} as DepartmentInputDto;
-  customer: CustomerDto = {} as CustomerDto;
+  machine: MachineDto = {} as MachineDto;
   formGroup: FormGroup;
   subs = new SubSink();
   isLoading = false;
-  customerList: CustomerDto[] = [];
+  machineList: MachineDto[] = [];
 
 
   constructor(
     private fb: FormBuilder,
     public modal: NgbActiveModal,
     private toaster: ToasterService,
-    private customerService: CustomerService,
+    private machineService: MachineService,
     private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
-    this.loadCustomer();
+    this.loadMachine();
 
   }
 
-  loadCustomer() {
-    this.customer = this.initObject();
+  loadMachine() {
+    this.machine = this.initObject();
     this.loadForm();
     if (this.id) {
       this.isLoading = true;
-      this.subs.sink = this.customerService
+      this.subs.sink = this.machineService
         .get(this.id)
         .pipe(
           first(),
@@ -51,9 +51,9 @@ export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
             return of(this.initObject());
           })
         )
-        .subscribe((customerDto: CustomerDto) => {
+        .subscribe((machineDto: MachineDto) => {
           this.isLoading = false;
-          this.customer = customerDto;
+          this.machine = machineDto;
           this.loadForm();
         });
     }
@@ -61,21 +61,21 @@ export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
 
   loadForm() {
     this.formGroup = this.fb.group({
-      customerName: [
-        this.customer.customerName,
+      machineNr: [
+        this.machine.machineNr,
         Validators.compose([
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(350),
         ])],
-      customerPhone: [this.customer.customerPhone]
+      machineTypeSerial: [this.machine.machineTypeSerial]
 
     });
   }
 
   save() {
     this.prepareData();
-    if (this.customer.id) {
+    if (this.machine.id) {
       this.edit();
     } else {
       this.create();
@@ -83,9 +83,9 @@ export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    this.subs.sink = this.customerService.update(this.customer).subscribe(
-      (respone: CustomerDto) => {
-        this.customer = respone;
+    this.subs.sink = this.machineService.update(this.machine).subscribe(
+      (respone: MachineDto) => {
+        this.machine = respone;
         this.toaster.success('Data updated successfully.', 'Success');
         this.modal.close();
       },
@@ -98,9 +98,9 @@ export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
   }
 
   create() {
-    this.subs.sink = this.customerService.create(this.customer).subscribe(
-      (res: CustomerDto) => {
-        this.customer = res;
+    this.subs.sink = this.machineService.create(this.machine).subscribe(
+      (res: MachineDto) => {
+        this.machine = res;
         this.toaster.success('Data saved successfully.', 'Success');
         this.modal.close();
       },
@@ -114,15 +114,15 @@ export class CreateUpdateCustomerModalComponent implements OnInit, OnDestroy {
 
   prepareData() {
     const formData = this.formGroup.value;
-    this.customer.customerName = formData.customerName;
-    this.customer.customerPhone = formData.customerPhone;
+    this.machine.machineNr = formData.machineNr;
+    this.machine.machineTypeSerial = formData.machineTypeSerial;
   }
 
   initObject() {
-    const EMPTY_ENTITY: CustomerDto = {
+    const EMPTY_ENTITY: MachineDto = {
       id: 0,
-      customerName: '',
-      customerPhone: ''
+      machineNr: '',
+      machineTypeSerial: ''
     };
     return EMPTY_ENTITY;
   }

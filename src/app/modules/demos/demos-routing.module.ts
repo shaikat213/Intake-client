@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DemosComponent } from './demos.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
+import { MachineListComponent } from './Machine/machine-list/machine-list.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'customers',
         component: CustomerListComponent,
+      },
+      {
+        path: 'machines',
+        component: MachineListComponent,
       },
       { path: '', redirectTo: 'demos', pathMatch: 'full' },
       { path: '**', redirectTo: 'demos', pathMatch: 'full' },
