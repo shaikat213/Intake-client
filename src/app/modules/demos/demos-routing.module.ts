@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DemosComponent } from './demos.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { MachineListComponent } from './Machine/machine-list/machine-list.component';
+import { SensorListComponent } from './Sensor/sensor-list/sensor-list.component';
+import { ProcessListComponent } from './Process/process-list/process-list.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
       {
         path: 'machines',
         component: MachineListComponent,
+      },
+      {
+        path: 'sensors',
+        component: SensorListComponent,
+      },
+      {
+        path: 'processList',
+        component: ProcessListComponent,
       },
       { path: '', redirectTo: 'demos', pathMatch: 'full' },
       { path: '**', redirectTo: 'demos', pathMatch: 'full' },

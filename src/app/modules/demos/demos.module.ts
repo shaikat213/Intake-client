@@ -13,6 +13,10 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CreateUpdateCustomerModalComponent } from './create-update-customer-modal/create-update-customer-modal.component';
 import { MachineListComponent } from './Machine/machine-list/machine-list.component';
 import { CreateUpdateMachineModalComponent } from './Machine/create-update-machine-modal/create-update-machine-modal.component';
+import { SensorListComponent } from './Sensor/sensor-list/sensor-list.component';
+import { CreateUpdateSensorModalComponent } from './Sensor/create-update-sensor-modal/create-update-sensor-modal.component';
+import { ProcessListComponent } from './Process/process-list/process-list.component';
+import { CreateUpdateProcessModalComponent } from './Process/create-update-process-modal/create-update-process-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { CreateUpdateMachineModalComponent } from './Machine/create-update-machi
     CustomerListComponent,
     CreateUpdateCustomerModalComponent,
     MachineListComponent,
-    CreateUpdateMachineModalComponent
+    CreateUpdateMachineModalComponent,
+    SensorListComponent,
+    CreateUpdateSensorModalComponent,
+    ProcessListComponent,
+    CreateUpdateProcessModalComponent,
   ],
   imports: [
     CommonModule,
