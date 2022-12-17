@@ -9,6 +9,7 @@ import { ProcessDto } from 'src/app/proxy/dto-models';
 import { ProcessService } from 'src/app/proxy/services';
 import { SubSink } from 'subsink';
 import { CreateUpdateProcessModalComponent } from '../create-update-process-modal/create-update-process-modal.component';
+import { ViewProcessModalComponent } from '../view-process-modal/view-process-modal.component';
 
 @Component({
   selector: 'app-process-list',
@@ -120,13 +121,13 @@ export class ProcessListComponent implements OnInit, OnDestroy {
   //}
 
   view(id: string): void {
-    //const modalRef = this.modalService.open(ViewTestModalComponent, {
-    //  size: 'md',
-    //});
-    //modalRef.componentInstance.id = id;
-    //modalRef.result.then(() => {
-    //  this.load();
-    //});
+    const modalRef = this.modalService.open(ViewProcessModalComponent, {
+      size: 'md',
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(() => {
+      this.load();
+    });
   }
 
   // pageChanged($event: any) {

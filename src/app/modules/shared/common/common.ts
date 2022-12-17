@@ -2,7 +2,7 @@
 
 export class Common {
 
-  public static readonly defaultDateFormat = 'DD-MM-YYYY';
+  public static readonly defaultDateFormat = 'DD/MM/YYYY';
   public static readonly responseDateFormat = 'YYYY-MM-DD';
 
   public static GetDeleteModalConfigurationObject(name: string): any {
