@@ -5,7 +5,7 @@ import { CommonModalService } from '../../../shared/services/common-modal.servic
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProcessDto } from 'src/app/proxy/dto-models';
+import { ProcessDto, SensorDto, SensorSearchDto } from 'src/app/proxy/dto-models';
 import { ProcessService } from 'src/app/proxy/services';
 import { SubSink } from 'subsink';
 import { CreateUpdateProcessModalComponent } from '../create-update-process-modal/create-update-process-modal.component';
@@ -16,20 +16,16 @@ import { ViewProcessModalComponent } from '../view-process-modal/view-process-mo
   templateUrl: './process-list.component.html',
   styleUrls: ['./process-list.component.scss']
 })
+
 export class ProcessListComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   subs = new SubSink();
   isLoading: boolean;
   processs: ProcessDto[] = [];
-  // filter: FilterModel = {
-  //     offset: 0,
-  //     limit: 0,
-  //     pageNo: 1,
-  //     pageSize: 10,
-  //     sortBy: 'name',
-  //     sortOrder: 'asc',
-  //     isDesc: false,
-  // };
+  sensorSearchDto: SensorSearchDto;//SearchComplaintDto;
+  customer: string = '';
+
+  
 
   constructor(
     private router: Router,
@@ -42,6 +38,7 @@ export class ProcessListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.loadForm();
     this.load();
   }
 
@@ -57,6 +54,42 @@ export class ProcessListComponent implements OnInit, OnDestroy {
         this.processs = response;
         this.cdRef.detectChanges();
       });
+  }
+
+  loadForm() {
+    this.formGroup = this.fb.group({
+      customer: [this.customer],
+      waterTemp: [this.sensorSearchDto?.waterTemp],
+      pump10: [this.sensorSearchDto?.pump10],
+      pump5: [this.sensorSearchDto?.pump5],
+      dra: [this.sensorSearchDto?.draInSensor],
+      waterLevel: [this.sensorSearchDto?.waterLevel]
+    });
+  }
+
+  searchByCustomer() {
+    const formData = this.formGroup.value;
+    this.customer = formData.customer;
+
+    this.subs.sink = this.processService.getProcessListByCustomer(this.customer).subscribe((data) => {
+      this.processs = data;//_.sortBy(data), ['name']); //.filter(d => d.allotmentId == null)
+      this.cdRef.detectChanges();
+    });
+  }
+
+  searchBySensor() {
+    const formData = this.formGroup.value;
+    this.sensorSearchDto = {};
+    this.sensorSearchDto.waterTemp = formData.waterTemp;
+    this.sensorSearchDto.pump10 = formData.pump10;
+    this.sensorSearchDto.pump5 = formData.pump5;
+    this.sensorSearchDto.draInSensor = formData.dra;
+    this.sensorSearchDto.waterLevel = formData.waterLevel;
+
+    this.subs.sink = this.processService.getProcessListBySensor(this.sensorSearchDto).subscribe((data) => {
+      this.processs = data;//_.sortBy(data), ['name']); //.filter(d => d.allotmentId == null)
+      this.cdRef.detectChanges();
+    });
   }
 
   create() {
@@ -106,19 +139,7 @@ export class ProcessListComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  //delete(id: string): void {
-  //  const modalRef = this.modalService.open(DeleteTestModalComponent);
-  //  modalRef.componentInstance.id = id;
-  //  modalRef.result.then(
-  //    () => {
-  //      this.load();
-  //    },
-  //    (error: any) => {
-  //      console.log(error);
-  //    }
-  //  );
-  //}
+   
 
   view(id: string): void {
     const modalRef = this.modalService.open(ViewProcessModalComponent, {

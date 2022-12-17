@@ -37,6 +37,14 @@ export interface SensorDto extends EntityDto<number> {
   waterLevel?: string;
 }
 
+export interface SensorSearchDto extends EntityDto<number> {
+  waterTemp?: string;
+  pump10?: number;
+  pump5?: number;
+  draInSensor?: number;
+  waterLevel?: string;
+}
+
 export interface TestEntityDto {
   id?: string;
   testName?: string;
