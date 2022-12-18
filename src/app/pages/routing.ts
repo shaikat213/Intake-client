@@ -45,7 +45,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/dashboard', //'/demo/processList', //
     pathMatch: 'full',
   },
   {

@@ -60,9 +60,9 @@ export class ProcessListComponent implements OnInit, OnDestroy {
     this.formGroup = this.fb.group({
       customer: [this.customer],
       waterTemp: [this.sensorSearchDto?.waterTemp],
-      pump10: [this.sensorSearchDto?.pump10],
-      pump5: [this.sensorSearchDto?.pump5],
-      dra: [this.sensorSearchDto?.draInSensor],
+      pump10: 0,//[this.sensorSearchDto?.pump10],
+      pump5: 0,//[this.sensorSearchDto?.pump5],
+      dra: 0,//[this.sensorSearchDto?.draInSensor],
       waterLevel: [this.sensorSearchDto?.waterLevel]
     });
   }
